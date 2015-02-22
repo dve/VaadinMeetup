@@ -18,13 +18,13 @@ package de.sebastianrothbucher.vaadin.meetup.ui.std.presenter;
 import java.util.Map;
 
 import de.sebastianrothbucher.vaadin.meetup.service.TalkService;
-import de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory;
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactoryEx;
 import de.sebastianrothbucher.vaadin.meetup.userauth.UserAuthentication;
 
 public class PresenterFactoryEx extends PresenterFactory {
 
 	public PresenterFactoryEx(Map<String, Object> context,
-			ViewFactory viewFactory, TalkService talkService,
+			ViewFactoryEx viewFactory, TalkService talkService,
 			UserAuthentication userAuthentication) {
 		super(context, viewFactory, talkService);
 		this.context = context;
@@ -33,7 +33,7 @@ public class PresenterFactoryEx extends PresenterFactory {
 	}
 
 	private Map<String, Object> context;
-	private ViewFactory viewFactory;
+	private ViewFactoryEx viewFactory;
 	private UserAuthentication userAuthentication;
 
 	/*

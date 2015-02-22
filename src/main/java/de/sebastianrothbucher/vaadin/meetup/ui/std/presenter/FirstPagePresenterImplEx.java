@@ -18,10 +18,11 @@ package de.sebastianrothbucher.vaadin.meetup.ui.std.presenter;
 import java.util.Map;
 
 import de.sebastianrothbucher.vaadin.meetup.model.User;
-import de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageView;
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewEx;
 import de.sebastianrothbucher.vaadin.meetup.userauth.UserAuthentication;
 
-public class FirstPagePresenterImplEx extends FirstPagePresenterImpl {
+public class FirstPagePresenterImplEx extends FirstPagePresenterImpl implements
+		FirstPageViewEx.Observer {
 
 	/**
 	 * 
@@ -29,14 +30,16 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl {
 	private static final long serialVersionUID = 1L;
 
 	public FirstPagePresenterImplEx(Map<String, Object> context,
-			FirstPageView view, PresenterFactoryEx presenterFactory,
+			FirstPageViewEx view, PresenterFactoryEx presenterFactory,
 			UserAuthentication userAuthentication) {
 		super(context, view, presenterFactory);
 		this.context = context;
+		this.view = view;
 		this.userAuthentication = userAuthentication;
 	}
 
 	private Map<String, Object> context;
+	private FirstPageViewEx view;
 	private UserAuthentication userAuthentication;
 
 	/*
@@ -48,14 +51,28 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl {
 	 */
 	@Override
 	public void startPresenting() {
+		super.startPresenting();
 		// we need an authenticated user!
 		User user = userAuthentication.getCurrentUser(context);
-		if (user == null || (!user.isGroupMember())) {
-			userAuthentication.requireUser(this, 2000, context);
-			return;
+		if (user == null) {
+			// no user - need to logon
+			view.setLogonVisible(true);
+			view.setMembershipVisible(false);
+			view.setTalksListVisible(false);
+			view.setUserName(null);
+		} else if (!user.isGroupMember()) {
+			// user is no member - too bad
+			view.setLogonVisible(false);
+			view.setMembershipVisible(true);
+			view.setTalksListVisible(false);
+			view.setUserName(user.getMeetupShort());
+		} else {
+			// yeah - we can go
+			view.setLogonVisible(false);
+			view.setMembershipVisible(false);
+			view.setTalksListVisible(true);
+			view.setUserName(user.getMeetupShort());
 		}
-		System.out.println("Welcome, " + user);
-		super.startPresenting();
 	}
 
 	/*
@@ -70,7 +87,7 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl {
 		// we need an authenticated user!
 		User user = userAuthentication.getCurrentUser(context);
 		if (user == null || (!user.isGroupMember())) {
-			userAuthentication.requireUser(this, 2000, context);
+			view.showErrorMessage("Not logged on!");
 			return;
 		}
 		super.onListTalk();
@@ -87,6 +104,30 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl {
 	public void onAddTalk() {
 		// the view is supposed to hide this one!
 		throw new UnsupportedOperationException();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.FirstPagePresenterImpl
+	 * #getView()
+	 */
+	@Override
+	public FirstPageViewEx getView() {
+		return view;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewEx.Observer
+	 * #onLogon()
+	 */
+	@Override
+	public void onLogon() {
+		userAuthentication.requireUser(this, 0, context);
 	}
 
 }

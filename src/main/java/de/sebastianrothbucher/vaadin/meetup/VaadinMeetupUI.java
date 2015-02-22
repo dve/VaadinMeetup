@@ -35,7 +35,7 @@ import de.sebastianrothbucher.vaadin.meetup.service.TalkServicePlain;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.FirstPagePresenter;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.PresenterFactoryEx;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageView;
-import de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactory;
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactoryEx;
 import de.sebastianrothbucher.vaadin.meetup.userauth.MeetupUserAuthentication;
 
 /**
@@ -82,7 +82,7 @@ public class VaadinMeetupUI extends UI {
 			userAuthentication.processCurrentRequest(request, getSession(),
 					context);
 			presenterFactory = new PresenterFactoryEx(context,
-					new VaadinViewFactory(), talkService, userAuthentication);
+					new VaadinViewFactoryEx(), talkService, userAuthentication);
 		}
 		return presenterFactory;
 	}
