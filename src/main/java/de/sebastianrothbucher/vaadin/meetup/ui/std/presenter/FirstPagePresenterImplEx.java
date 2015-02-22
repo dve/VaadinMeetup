@@ -53,23 +53,26 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl implements
 	public void startPresenting() {
 		super.startPresenting();
 		// we need an authenticated user!
-		User user = userAuthentication.getCurrentUser(context);
+		User user = (User) context.get(UserAuthentication.CURRENT_USER_CONTEXT_KEY);
 		if (user == null) {
 			// no user - need to logon
-			view.setLogonVisible(true);
-			view.setMembershipVisible(false);
+			view.setLogonHintVisible(true);
+			view.setMembershipHintVisible(false);
+			view.setLogonButtonVisible(true);
 			view.setTalksListVisible(false);
 			view.setUserName(null);
 		} else if (!user.isGroupMember()) {
 			// user is no member - too bad
-			view.setLogonVisible(false);
-			view.setMembershipVisible(true);
+			view.setLogonHintVisible(false);
+			view.setMembershipHintVisible(true);
+			view.setLogonButtonVisible(true);
 			view.setTalksListVisible(false);
 			view.setUserName(user.getMeetupShort());
 		} else {
 			// yeah - we can go
-			view.setLogonVisible(false);
-			view.setMembershipVisible(false);
+			view.setLogonHintVisible(false);
+			view.setMembershipHintVisible(false);
+			view.setLogonButtonVisible(false);
 			view.setTalksListVisible(true);
 			view.setUserName(user.getMeetupShort());
 		}
@@ -85,7 +88,7 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl implements
 	@Override
 	public void onListTalk() {
 		// we need an authenticated user!
-		User user = userAuthentication.getCurrentUser(context);
+		User user = (User) context.get(UserAuthentication.CURRENT_USER_CONTEXT_KEY);
 		if (user == null || (!user.isGroupMember())) {
 			view.showErrorMessage("Not logged on!");
 			return;

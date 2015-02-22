@@ -18,12 +18,12 @@ package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 public interface FirstPageViewEx extends FirstPageView {
 
 	/**
-	 * Show a "you have to auth with meetup first" hint + button to do so
+	 * Show a "you have to auth with meetup first" message
 	 * 
 	 * @param visible
 	 *            or not
 	 */
-	public void setLogonVisible(boolean visible);
+	public void setLogonHintVisible(boolean visible);
 
 	/**
 	 * Show a "you have to become member of Vaadin-Germany first" message
@@ -31,7 +31,15 @@ public interface FirstPageViewEx extends FirstPageView {
 	 * @param visible
 	 *            or not
 	 */
-	public void setMembershipVisible(boolean visible);
+	public void setMembershipHintVisible(boolean visible);
+
+	/**
+	 * Show a "logon" button
+	 * 
+	 * @param visible
+	 *            or not
+	 */
+	public void setLogonButtonVisible(boolean visible);
 
 	/**
 	 * Show the button to jump to the talks list

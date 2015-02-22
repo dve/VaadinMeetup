@@ -18,9 +18,7 @@ package de.sebastianrothbucher.vaadin.meetup.userauth;
 import java.util.Map;
 
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinSession;
 
-import de.sebastianrothbucher.vaadin.meetup.model.User;
 import de.sebastianrothbucher.vaadin.meetup.ui.presenter.Presenter;
 
 /**
@@ -38,20 +36,11 @@ public interface UserAuthentication {
 	 * 
 	 * @param request
 	 *            vaadin request
-	 * @param session
-	 *            vaadin session
 	 * @param context
 	 *            context of current UI
 	 */
 	public void processCurrentRequest(VaadinRequest request,
-			VaadinSession session, Map<String, Object> context);
-
-	/**
-	 * @param context
-	 *            context of current UI
-	 * @return user or null
-	 */
-	public User getCurrentUser(Map<String, Object> context);
+			Map<String, Object> context);
 
 	/**
 	 * Require a user authentication to be performed and the bespoke presenter
@@ -66,5 +55,19 @@ public interface UserAuthentication {
 	 */
 	public void requireUser(Presenter returnPresenter, int delay,
 			Map<String, Object> context);
+
+	/**
+	 * Helper to hide away the session (which is no IF)
+	 * 
+	 * @author srothbucher
+	 *
+	 */
+	public static interface SessionAccess {
+
+		public Object getAttribute(String name);
+
+		public void setAttribute(String name, Object value);
+
+	}
 
 }

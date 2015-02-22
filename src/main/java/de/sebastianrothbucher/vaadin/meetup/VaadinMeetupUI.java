@@ -36,6 +36,7 @@ import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.FirstPagePresenter;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.PresenterFactoryEx;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageView;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactoryEx;
+import de.sebastianrothbucher.vaadin.meetup.userauth.FakeUserAuthentication;
 import de.sebastianrothbucher.vaadin.meetup.userauth.MeetupUserAuthentication;
 
 /**
@@ -78,9 +79,11 @@ public class VaadinMeetupUI extends UI {
 			TalkDaoPlain talkDaoPlain = new TalkDaoPlain(entityManagerFactory);
 			talkService = new TalkServicePlain(entityManagerFactory,
 					talkDaoPlain);
-			MeetupUserAuthentication userAuthentication = new MeetupUserAuthentication();
-			userAuthentication.processCurrentRequest(request, getSession(),
-					context);
+			// TODO: swap fake for real again
+			FakeUserAuthentication userAuthentication = new FakeUserAuthentication();
+			// MeetupUserAuthentication userAuthentication = new
+			// MeetupUserAuthentication(new VaadinSessionAccess());
+			userAuthentication.processCurrentRequest(request, context);
 			presenterFactory = new PresenterFactoryEx(context,
 					new VaadinViewFactoryEx(), talkService, userAuthentication);
 		}

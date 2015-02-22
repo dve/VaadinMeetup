@@ -19,6 +19,7 @@ import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickEvent;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickListener;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
 
 public class FirstPageViewImplEx extends FirstPageViewImpl implements
@@ -35,8 +36,8 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 
 	protected Label userNameLabel = new Label();
 	protected Label logonLabel = new Label();
-	protected NavigationButton logonButton = new NavigationButton();
 	protected Label memberLabel = new Label();
+	protected NavigationButton logonButton = new NavigationButton();
 
 	private FirstPageViewEx.Observer observer;
 
@@ -65,6 +66,13 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 				.setValue("You have to authenticate via Meetup as member of Vaadin-Germany");
 		logonLabel.addStyleName("styleid-FirstPageViewImplEx-logonLabel");
 		logonGroup.addComponent(logonLabel);
+		memberLabel.setVisible(false);
+		// TODO: move to bundle
+		memberLabel
+				.setValue("Please join <a href=\"http://www.meetup.com/Vaadin-Germany/\" target=\"_blank\">Vaadin-Germany</a> and revisit the app then...");
+		memberLabel.setContentMode(ContentMode.HTML);
+		memberLabel.addStyleName("styleid-FirstPageViewImplEx-memberLabel");
+		logonGroup.addComponent(memberLabel);
 		logonButton.setVisible(false);
 		// TODO: move to bundle
 		logonButton.setCaption("Logon via Meetup.com now...");
@@ -83,12 +91,6 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 
 		});
 		logonGroup.addComponent(logonButton);
-		memberLabel.setVisible(false);
-		// TODO: move to bundle
-		memberLabel
-				.setValue("Please join Vaadin-Germany and revisit the app then...");
-		memberLabel.addStyleName("styleid-FirstPageViewImplEx-memberLabel");
-		logonGroup.addComponent(memberLabel);
 		firstPageLayout.addComponent(logonGroup, 0);
 	}
 
@@ -116,14 +118,30 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 	 * setLogonVisible(boolean)
 	 */
 	@Override
-	public void setLogonVisible(boolean visible) {
+	public void setLogonHintVisible(boolean visible) {
 		logonLabel.setVisible(visible);
-		logonButton.setVisible(visible);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewEx#
+	 * setMembershipHintVisible(boolean)
+	 */
 	@Override
-	public void setMembershipVisible(boolean visible) {
+	public void setMembershipHintVisible(boolean visible) {
 		memberLabel.setVisible(visible);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewEx#
+	 * setLogonButtonVisible(boolean)
+	 */
+	@Override
+	public void setLogonButtonVisible(boolean visible) {
+		logonButton.setVisible(visible);
 	}
 
 	/*

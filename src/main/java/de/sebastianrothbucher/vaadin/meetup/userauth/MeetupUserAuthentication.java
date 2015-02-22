@@ -33,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.JavaScript;
 
 import de.sebastianrothbucher.vaadin.meetup.TechnicalException;
@@ -72,21 +71,17 @@ public class MeetupUserAuthentication implements UserAuthentication,
 
 	private static final String OAUTH_SECRET_PROP = System
 			.getProperty("meetup.oauth2.secret");
+	
+	private SessionAccess session;
 
-	public MeetupUserAuthentication() {
+	public MeetupUserAuthentication(SessionAccess session) {
 		super();
+		this.session = session;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.userauth.UserAuthentication#
-	 * processCurrentRequest(com.vaadin.server.VaadinRequest,
-	 * com.vaadin.server.VaadinSession, java.util.Map)
-	 */
 	@Override
 	public void processCurrentRequest(VaadinRequest request,
-			VaadinSession session, Map<String, Object> context) {
+			Map<String, Object> context) {
 		User lastUser = (User) session.getAttribute(LAST_USER_SESSION_ATTR);
 		if (lastUser != null) {
 			// already a user in the session - put it back & no further action
@@ -234,17 +229,6 @@ public class MeetupUserAuthentication implements UserAuthentication,
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.userauth.UserAuthentication#
-	 * getCurrentUser(java.util.Map)
-	 */
-	@Override
-	public User getCurrentUser(Map<String, Object> context) {
-		return (User) context.get(UserAuthentication.CURRENT_USER_CONTEXT_KEY);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * de.sebastianrothbucher.vaadin.meetup.userauth.UserAuthentication#requireUser
 	 * (de.sebastianrothbucher.vaadin.meetup.ui.presenter.Presenter, int,
@@ -254,6 +238,8 @@ public class MeetupUserAuthentication implements UserAuthentication,
 	public void requireUser(Presenter returnPresenter, int delay,
 			Map<String, Object> context) {
 		System.out.println(OAUTH_KEY_PROP);
+		// kill the current user - so we can have a new one
+		session.setAttribute(LAST_USER_SESSION_ATTR, null);
 		// (no presenter to be called EVER as we re-init the application
 		// afterwards => pointless to remember it)
 		JavaScript
