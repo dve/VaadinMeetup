@@ -87,7 +87,7 @@ public class VaadinMeetupUI extends UI {
 			talkService = new TalkServicePlain(entityManagerFactory,
 					talkDaoPlain);
 			// TODO: enable fake (e.g. via system property)
-//			FakeUserAuthentication userAuthentication = new FakeUserAuthentication();
+			// FakeUserAuthentication userAuthentication = new FakeUserAuthentication();
 			MeetupUserAuthentication userAuthentication = new MeetupUserAuthentication(
 					new VaadinSessionAccess());
 			userAuthentication.processCurrentRequest(request, context);

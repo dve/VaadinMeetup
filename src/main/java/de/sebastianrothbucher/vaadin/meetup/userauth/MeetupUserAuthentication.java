@@ -133,8 +133,8 @@ public class MeetupUserAuthentication implements UserAuthentication,
 						break;
 					}
 				}
-				User res = new User(abbreviateName(userInfo.getString("name")),
-						isMember);
+				User res = new User(userInfo.getInt("id"),
+						abbreviateName(userInfo.getString("name")), isMember);
 				session.setAttribute(LAST_USER_SESSION_ATTR, res);
 				context.put(UserAuthentication.CURRENT_USER_CONTEXT_KEY, res);
 			} catch (JSONException e) {

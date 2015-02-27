@@ -38,12 +38,15 @@ public class FakeUserAuthentication implements UserAuthentication {
 	@Override
 	public void processCurrentRequest(VaadinRequest request,
 			Map<String, Object> context) {
-		if (request.getParameter("fakeuser") != null
+		if (request.getParameter("fakeid") != null
+				&& request.getParameter("fakeuser") != null
 				&& request.getParameter("fakemember") != null) {
 			context.put(
 					UserAuthentication.CURRENT_USER_CONTEXT_KEY,
-					new User(request.getParameter("fakeuser"), Boolean
-							.parseBoolean(request.getParameter("fakemember"))));
+					new User(Integer.parseInt(request.getParameter("fakeid")),
+							request.getParameter("fakeuser"), Boolean
+									.parseBoolean(request
+											.getParameter("fakemember"))));
 		}
 	}
 
@@ -61,7 +64,7 @@ public class FakeUserAuthentication implements UserAuthentication {
 		// (no presenter to be called EVER as we re-init the application
 		// afterwards => pointless to remember it)
 		JavaScript.getCurrent().execute(
-				"setTimeout(\"location.href='?fakeuser=Sebastian%20R.&fakemember=true';\", "
+				"setTimeout(\"location.href='?fakeid=55&fakeuser=Sebastian%20R.&fakemember=true';\", "
 						+ delay + ");");
 	}
 

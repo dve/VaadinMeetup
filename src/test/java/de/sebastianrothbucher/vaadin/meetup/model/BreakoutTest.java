@@ -35,7 +35,7 @@ public class BreakoutTest {
 
 	@Test
 	public void testSubmittedByUserName() {
-		breakout.setSubmittedByUser(new User("Wile E. C.", true));
+		breakout.setSubmittedByUser(new User(22, "Wile E. C.", true));
 		assertEquals("Wile E. C.", breakout.getSubmittedByUserName());
 	}
 
@@ -46,14 +46,14 @@ public class BreakoutTest {
 
 	@Test
 	public void testGetLikedCount() {
-		breakout.setLikedByUsers(Collections.singleton(new User("Wile E. C.",
+		breakout.setLikedByUsers(Collections.singleton(new User(22, "Wile E. C.",
 				true)));
 		assertEquals(1, breakout.getLikedCount());
 	}
 
 	@Test
 	public void testLike() {
-		User user = new User("Wile E. C.", true);
+		User user = new User(22, "Wile E. C.", true);
 		// must count only once
 		breakout.like(user);
 		breakout.like(user);
@@ -64,9 +64,9 @@ public class BreakoutTest {
 	@Test
 	public void testUnlike() {
 		Set<User> users = new HashSet<User>();
-		User user1 = new User("Road R.", true);
+		User user1 = new User(33, "Road R.", true);
 		users.add(user1);
-		User user = new User("Wile E. C.", true);
+		User user = new User(22, "Wile E. C.", true);
 		users.add(user);
 		breakout.setLikedByUsers(users);
 		// must count only once

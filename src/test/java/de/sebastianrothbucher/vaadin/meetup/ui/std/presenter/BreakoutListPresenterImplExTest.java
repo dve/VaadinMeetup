@@ -46,7 +46,7 @@ import de.sebastianrothbucher.vaadin.meetup.userauth.UserAuthentication;
 public class BreakoutListPresenterImplExTest {
 
 	Map<String, Object> context = new HashMap<String, Object>();
-	User testUser = new User("Test U.", true);
+	User testUser = new User(22, "Test U.", true);
 	BreakoutListView breakoutListView;
 	BreakoutServiceEx breakoutServiceEx;
 	PresenterFactoryEx presenterFactoryEx;

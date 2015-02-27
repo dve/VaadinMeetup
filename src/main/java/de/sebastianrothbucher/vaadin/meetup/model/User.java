@@ -35,16 +35,26 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(String meetupShort, boolean groupMember) {
+	public User(int meetupId, String meetupShort, boolean groupMember) {
 		super();
+		this.meetupId = meetupId;
 		this.meetupShort = meetupShort;
 		this.groupMember = groupMember;
 	}
 
 	@Id
+	private int meetupId;	
 	private String meetupShort = "";
 	@Transient
 	private boolean groupMember = false;
+
+	public int getMeetupId() {
+		return meetupId;
+	}
+
+	public void setMeetupId(int meetupId) {
+		this.meetupId = meetupId;
+	}
 
 	public String getMeetupShort() {
 		return meetupShort;
@@ -66,6 +76,8 @@ public class User implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (groupMember ? 1231 : 1237);
+		result = prime * result + meetupId;
 		result = prime * result
 				+ ((meetupShort == null) ? 0 : meetupShort.hashCode());
 		return result;
@@ -80,6 +92,10 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (groupMember != other.groupMember)
+			return false;
+		if (meetupId != other.meetupId)
+			return false;
 		if (meetupShort == null) {
 			if (other.meetupShort != null)
 				return false;
@@ -90,8 +106,8 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [meetupShort=" + meetupShort + ", groupMember="
-				+ groupMember + "]";
+		return "User [meetupId=" + meetupId + ", meetupShort=" + meetupShort
+				+ ", groupMember=" + groupMember + "]";
 	}
 
 }

@@ -46,7 +46,7 @@ import de.sebastianrothbucher.vaadin.meetup.userauth.UserAuthentication;
 public class BreakoutChangePresenterImplExTest {
 
 	Map<String, Object> context = new HashMap<String, Object>();
-	User testUser = new User("Test U.", true);
+	User testUser = new User(22, "Test U.", true);
 	BreakoutChangeViewEx breakoutChangeViewEx;
 	BreakoutServiceEx breakoutServiceEx;
 	Presenter returnPresenter;
@@ -96,7 +96,7 @@ public class BreakoutChangePresenterImplExTest {
 	public void testStartPresentingOtherUser() {
 		context.put(UserAuthentication.CURRENT_USER_CONTEXT_KEY, testUser);
 		Breakout breakout = new Breakout("Old Topic");
-		breakout.setSubmittedByUser(new User("Other U.", true));
+		breakout.setSubmittedByUser(new User(33, "Other U.", true));
 		presenter.setBreakout(breakout);
 		presenter.startPresenting();
 		verify(breakoutChangeViewEx).setObserver(presenter);
@@ -113,7 +113,7 @@ public class BreakoutChangePresenterImplExTest {
 		context.put(UserAuthentication.CURRENT_USER_CONTEXT_KEY, testUser);
 		Breakout breakout = new Breakout("Old Topic");
 		breakout.setSubmittedByUser(testUser);
-		breakout.setLikedByUsers(Collections.singleton(new User("Other U.",
+		breakout.setLikedByUsers(Collections.singleton(new User(33, "Other U.",
 				true)));
 		presenter.setBreakout(breakout);
 		presenter.startPresenting();
@@ -133,7 +133,7 @@ public class BreakoutChangePresenterImplExTest {
 		breakout.setSubmittedByUser(testUser);
 		Set<User> likes = new HashSet<User>();
 		likes.add(testUser);
-		likes.add(new User("Other U.", true));
+		likes.add(new User(33, "Other U.", true));
 		breakout.setLikedByUsers(likes);
 		presenter.setBreakout(breakout);
 		presenter.startPresenting();
@@ -180,7 +180,7 @@ public class BreakoutChangePresenterImplExTest {
 	public void testOnSaveOtherUser() {
 		context.put(UserAuthentication.CURRENT_USER_CONTEXT_KEY, testUser);
 		Breakout breakout = new Breakout("Old Topic");
-		breakout.setSubmittedByUser(new User("Other U.", true));
+		breakout.setSubmittedByUser(new User(33, "Other U.", true));
 		presenter.setBreakout(breakout);
 		when(breakoutChangeViewEx.checkAllFieldsValid()).thenReturn(true);
 		when(breakoutChangeViewEx.getTopic()).thenReturn("New Topic");
@@ -196,7 +196,7 @@ public class BreakoutChangePresenterImplExTest {
 		context.put(UserAuthentication.CURRENT_USER_CONTEXT_KEY, testUser);
 		Breakout breakout = new Breakout("Old Topic");
 		breakout.setSubmittedByUser(testUser);
-		breakout.setLikedByUsers(Collections.singleton(new User("Other U.",
+		breakout.setLikedByUsers(Collections.singleton(new User(33, "Other U.",
 				true)));
 		presenter.setBreakout(breakout);
 		when(breakoutChangeViewEx.checkAllFieldsValid()).thenReturn(true);
