@@ -29,7 +29,10 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 
+import de.sebastianrothbucher.vaadin.meetup.dao.BreakoutDaoPlain;
 import de.sebastianrothbucher.vaadin.meetup.dao.TalkDaoPlain;
+import de.sebastianrothbucher.vaadin.meetup.service.BreakoutServiceEx;
+import de.sebastianrothbucher.vaadin.meetup.service.BreakoutServicePlainEx;
 import de.sebastianrothbucher.vaadin.meetup.service.TalkService;
 import de.sebastianrothbucher.vaadin.meetup.service.TalkServicePlain;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.FirstPagePresenter;
@@ -37,7 +40,6 @@ import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.PresenterFactoryEx;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageView;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactoryEx;
 import de.sebastianrothbucher.vaadin.meetup.userauth.FakeUserAuthentication;
-import de.sebastianrothbucher.vaadin.meetup.userauth.MeetupUserAuthentication;
 
 /**
  * Main UI class
@@ -73,19 +75,25 @@ public class VaadinMeetupUI extends UI {
 			Map<String, Object> context = new HashMap<String, Object>();
 			// simple, overwrite method for e.g. Spring / CDI / ...
 			// Entity-Manager NUR Thread-Safe, wenn er injected wird wie hier
+			BreakoutServiceEx breakoutService;
 			TalkService talkService;
 			EntityManagerFactory entityManagerFactory = Persistence
 					.createEntityManagerFactory("VaadinMeetup");
+			BreakoutDaoPlain breakoutDaoPlain = new BreakoutDaoPlain(
+					entityManagerFactory);
+			breakoutService = new BreakoutServicePlainEx(entityManagerFactory,
+					breakoutDaoPlain);
 			TalkDaoPlain talkDaoPlain = new TalkDaoPlain(entityManagerFactory);
 			talkService = new TalkServicePlain(entityManagerFactory,
 					talkDaoPlain);
 			// TODO: swap fake for real again
 			FakeUserAuthentication userAuthentication = new FakeUserAuthentication();
-			// MeetupUserAuthentication userAuthentication = new
-			// MeetupUserAuthentication(new VaadinSessionAccess());
+//			 MeetupUserAuthentication userAuthentication = new
+//			 MeetupUserAuthentication(new VaadinSessionAccess());
 			userAuthentication.processCurrentRequest(request, context);
 			presenterFactory = new PresenterFactoryEx(context,
-					new VaadinViewFactoryEx(), talkService, userAuthentication);
+					new VaadinViewFactoryEx(), breakoutService, talkService,
+					userAuthentication);
 		}
 		return presenterFactory;
 	}

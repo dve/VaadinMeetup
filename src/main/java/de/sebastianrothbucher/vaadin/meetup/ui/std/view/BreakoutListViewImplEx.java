@@ -15,24 +15,29 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
-public interface ViewFactoryEx extends ViewFactory {
+public class BreakoutListViewImplEx extends BreakoutListViewImpl {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public BreakoutListViewImplEx() {
+		super();
+	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createFirstPageView()
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.BreakoutListViewImpl
+	 * #initializeUi()
 	 */
 	@Override
-	public FirstPageViewEx createFirstPageView();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createBreakoutChangeView()
-	 */
-	@Override
-	public BreakoutChangeViewEx createBreakoutChangeView();
+	public void initializeUi() {
+		super.initializeUi();
+		// TODO: move to bundle
+		setCaption("Alle Breakouts");
+	}
 
 }

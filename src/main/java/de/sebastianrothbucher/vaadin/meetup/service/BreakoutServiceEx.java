@@ -13,26 +13,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
+package de.sebastianrothbucher.vaadin.meetup.service;
 
-public interface ViewFactoryEx extends ViewFactory {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createFirstPageView()
-	 */
-	@Override
-	public FirstPageViewEx createFirstPageView();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createBreakoutChangeView()
-	 */
-	@Override
-	public BreakoutChangeViewEx createBreakoutChangeView();
+public interface BreakoutServiceEx extends BreakoutService {
 
 }

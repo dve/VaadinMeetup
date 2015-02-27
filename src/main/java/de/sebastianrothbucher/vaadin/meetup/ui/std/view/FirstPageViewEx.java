@@ -47,7 +47,15 @@ public interface FirstPageViewEx extends FirstPageView {
 	 * @param visible
 	 *            or not
 	 */
-	public void setTalksListVisible(boolean visible);
+	public void setTalksVisible(boolean visible);
+
+	/**
+	 * Show the button to jump to the breakouts list and suggest a breakout
+	 * 
+	 * @param visible
+	 *            or not
+	 */
+	public void setBreakoutsVisible(boolean visible);
 
 	/**
 	 * Show the user name à la "Welcome, Sebastian"

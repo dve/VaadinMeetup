@@ -26,11 +26,66 @@ public class VaadinViewFactoryEx extends VaadinViewFactory implements
 	 * (non-Javadoc)
 	 * 
 	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactory#
+	 * createBreakoutListView()
+	 */
+	@Override
+	public BreakoutListView createBreakoutListView() {
+		return new BreakoutListViewImplEx();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactory#
+	 * createBreakoutAddView()
+	 */
+	@Override
+	public BreakoutAddView createBreakoutAddView() {
+		return new BreakoutAddViewImplEx();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactory#
+	 * createBreakoutChangeView()
+	 */
+	@Override
+	public BreakoutChangeViewEx createBreakoutChangeView() {
+		return new BreakoutChangeViewImplEx();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactory#
 	 * createFirstPageView()
 	 */
 	@Override
 	public FirstPageViewEx createFirstPageView() {
 		return new FirstPageViewImplEx();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactory#
+	 * createTalkListView()
+	 */
+	@Override
+	public TalkListView createTalkListView() {
+		return new TalkListViewImplEx();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactory#
+	 * createTalkChangeView()
+	 */
+	@Override
+	public TalkChangeView createTalkChangeView() {
+		return new TalkChangeViewImplEx();
 	}
 
 }

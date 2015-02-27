@@ -19,7 +19,9 @@ the License.
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 	<persistence-unit name="VaadinMeetupTest" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>de.sebastianrothbucher.vaadin.meetup.model.Breakout</class>
 		<class>de.sebastianrothbucher.vaadin.meetup.model.Talk</class>
+		<class>de.sebastianrothbucher.vaadin.meetup.model.User</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="eclipselink.application-location" value="." />

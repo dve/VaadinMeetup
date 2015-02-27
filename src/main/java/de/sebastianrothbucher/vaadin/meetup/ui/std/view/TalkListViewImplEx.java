@@ -15,24 +15,30 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
-public interface ViewFactoryEx extends ViewFactory {
+public class TalkListViewImplEx extends TalkListViewImpl {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public TalkListViewImplEx() {
+		super();
+	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createFirstPageView()
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.TalkListViewImpl#
+	 * initializeUi()
 	 */
 	@Override
-	public FirstPageViewEx createFirstPageView();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createBreakoutChangeView()
-	 */
-	@Override
-	public BreakoutChangeViewEx createBreakoutChangeView();
+	public void initializeUi() {
+		super.initializeUi();
+		// TODO: move to bundle
+		setCaption("Alle Talks");
+		// adding does not make sense
+		addTalk.setVisible(false);
+	}
 
 }

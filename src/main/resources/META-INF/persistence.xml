@@ -20,8 +20,10 @@ the License.
 	<persistence-unit name="VaadinMeetup" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<!-- (Tomcat) -->
-		<non-jta-data-source>java:comp/env/jdbc/vaadin</non-jta-data-source>
+		<non-jta-data-source>java:comp/env/jdbc/PostgreSQLDS</non-jta-data-source>
+		<class>de.sebastianrothbucher.vaadin.meetup.model.Breakout</class>
 		<class>de.sebastianrothbucher.vaadin.meetup.model.Talk</class>
+		<class>de.sebastianrothbucher.vaadin.meetup.model.User</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.target-database" value="PostgreSQL" />

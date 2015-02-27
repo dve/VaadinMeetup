@@ -15,24 +15,33 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
-public interface ViewFactoryEx extends ViewFactory {
+public class TalkChangeViewImplEx extends TalkChangeViewImpl {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public TalkChangeViewImplEx() {
+		super();
+	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createFirstPageView()
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.TalkChangeViewImpl#
+	 * initializeUi()
 	 */
 	@Override
-	public FirstPageViewEx createFirstPageView();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createBreakoutChangeView()
-	 */
-	@Override
-	public BreakoutChangeViewEx createBreakoutChangeView();
+	public void initializeUi() {
+		super.initializeUi();
+		// TODO: move to bundle
+		setCaption("Talk-Details");
+		// save does not make sense
+		save.setVisible(false);
+		// and rename "back"
+		// TODO: move to bundle
+		cancel.setCaption("Zurück");
+	}
 
 }

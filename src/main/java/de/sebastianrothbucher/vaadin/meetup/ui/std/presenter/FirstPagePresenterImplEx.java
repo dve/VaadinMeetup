@@ -59,21 +59,24 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl implements
 			view.setLogonHintVisible(true);
 			view.setMembershipHintVisible(false);
 			view.setLogonButtonVisible(true);
-			view.setTalksListVisible(false);
+			view.setTalksVisible(false);
+			view.setBreakoutsVisible(false);
 			view.setUserName(null);
 		} else if (!user.isGroupMember()) {
 			// user is no member - too bad
 			view.setLogonHintVisible(false);
 			view.setMembershipHintVisible(true);
 			view.setLogonButtonVisible(true);
-			view.setTalksListVisible(false);
+			view.setTalksVisible(false);
+			view.setBreakoutsVisible(false);
 			view.setUserName(user.getMeetupShort());
 		} else {
 			// yeah - we can go
 			view.setLogonHintVisible(false);
 			view.setMembershipHintVisible(false);
 			view.setLogonButtonVisible(false);
-			view.setTalksListVisible(true);
+			view.setTalksVisible(true);
+			view.setBreakoutsVisible(true);
 			view.setUserName(user.getMeetupShort());
 		}
 	}
@@ -107,6 +110,44 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl implements
 	public void onAddTalk() {
 		// the view is supposed to hide this one!
 		throw new UnsupportedOperationException();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.FirstPagePresenterImpl
+	 * #onListBreakout()
+	 */
+	@Override
+	public void onListBreakout() {
+		// we need an authenticated user!
+		User user = (User) context
+				.get(UserAuthentication.CURRENT_USER_CONTEXT_KEY);
+		if (user == null || (!user.isGroupMember())) {
+			view.showErrorMessage("Not logged on!");
+			return;
+		}
+		super.onListBreakout();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.FirstPagePresenterImpl
+	 * #onAddBreakout()
+	 */
+	@Override
+	public void onAddBreakout() {
+		// we need an authenticated user!
+		User user = (User) context
+				.get(UserAuthentication.CURRENT_USER_CONTEXT_KEY);
+		if (user == null || (!user.isGroupMember())) {
+			view.showErrorMessage("Not logged on!");
+			return;
+		}
+		super.onAddBreakout();
 	}
 
 	/*

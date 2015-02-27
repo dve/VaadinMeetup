@@ -51,10 +51,16 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 	public void initializeUi() {
 		super.initializeUi();
 		// TODO: move to bundle
-		listTalkButton.setCaption("See all talks...");
+		listTalkButton.setCaption("Alle Talks...");
+		// TODO: move to bundle
+		listBreakoutButton.setCaption("Alle Breakouts...");
+		// TODO: move to bundle
+		newBreakoutButton.setCaption("Breakout vorschlagen");
 		// hide "standard buttons"
 		listTalkButton.setVisible(false);
 		newTalkButton.setVisible(false);
+		listBreakoutButton.setVisible(false);
+		newBreakoutButton.setVisible(false);
 		// add elements for logon
 		VerticalComponentGroup logonGroup = new VerticalComponentGroup();
 		userNameLabel.setVisible(false);
@@ -63,19 +69,19 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 		logonLabel.setVisible(false);
 		// TODO: move to bundle
 		logonLabel
-				.setValue("You have to authenticate via Meetup as member of Vaadin-Germany");
+				.setValue("Sie müssen über Meetup als Mitglied von Vaadin-Germany angemeldet sein.");
 		logonLabel.addStyleName("styleid-FirstPageViewImplEx-logonLabel");
 		logonGroup.addComponent(logonLabel);
 		memberLabel.setVisible(false);
 		// TODO: move to bundle
 		memberLabel
-				.setValue("Please join <a href=\"http://www.meetup.com/Vaadin-Germany/\" target=\"_blank\">Vaadin-Germany</a> and revisit the app then...");
+				.setValue("Treten Sie <a href=\"http://www.meetup.com/Vaadin-Germany/\" target=\"_blank\">Vaadin-Germany</a> bei und rufen Sie die App erneut auf...");
 		memberLabel.setContentMode(ContentMode.HTML);
 		memberLabel.addStyleName("styleid-FirstPageViewImplEx-memberLabel");
 		logonGroup.addComponent(memberLabel);
 		logonButton.setVisible(false);
 		// TODO: move to bundle
-		logonButton.setCaption("Logon via Meetup.com now...");
+		logonButton.setCaption("Jetzt via Meetup.com anmelden...");
 		logonButton.addStyleName("styleid-FirstPageViewImplEx-logonButton");
 		logonButton.addClickListener(new NavigationButtonClickListener() {
 
@@ -151,9 +157,21 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 	 * setTalksListVisible(boolean)
 	 */
 	@Override
-	public void setTalksListVisible(boolean visible) {
+	public void setTalksVisible(boolean visible) {
 		listTalkButton.getParent().setVisible(visible);
 		listTalkButton.setVisible(visible);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewEx#
+	 * setBreakoutsVisible(boolean)
+	 */
+	@Override
+	public void setBreakoutsVisible(boolean visible) {
+		listBreakoutButton.setVisible(visible);
+		newBreakoutButton.setVisible(visible);
 	}
 
 	/*
@@ -170,7 +188,7 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 			userNameLabel.setVisible(false);
 		} else {
 			// TODO: move to bundle
-			userNameLabel.setValue("Welcome, " + userName);
+			userNameLabel.setValue("Willkommen, " + userName);
 			userNameLabel.setVisible(true);
 		}
 	}

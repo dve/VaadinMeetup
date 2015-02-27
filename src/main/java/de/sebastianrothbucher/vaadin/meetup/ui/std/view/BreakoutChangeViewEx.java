@@ -15,24 +15,18 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
-public interface ViewFactoryEx extends ViewFactory {
+public interface BreakoutChangeViewEx extends BreakoutChangeView {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createFirstPageView()
-	 */
-	@Override
-	public FirstPageViewEx createFirstPageView();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.ViewFactory#
-	 * createBreakoutChangeView()
-	 */
-	@Override
-	public BreakoutChangeViewEx createBreakoutChangeView();
-
+	public void setReadOnlyMode(boolean readOnlyMode);
+	
+	public void setLiked(boolean isLiked);
+	
+	public static interface Observer extends BreakoutChangeView.Observer {
+		
+		public void onLike();
+		
+		public void onUnlike();
+		
+	}
+	
 }
