@@ -16,10 +16,17 @@
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
 import com.vaadin.addon.touchkit.ui.NavigationButton;
-import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
+import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickEvent;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickListener;
+import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
 
 public class FirstPageViewImplEx extends FirstPageViewImpl implements
@@ -38,7 +45,10 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 	protected Label logonLabel = new Label();
 	protected Label memberLabel = new Label();
 	protected NavigationButton logonButton = new NavigationButton();
+	protected Button impressumButton = new Button();
 
+	private Popover popover = null;
+	
 	private FirstPageViewEx.Observer observer;
 
 	/*
@@ -98,6 +108,68 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 		});
 		logonGroup.addComponent(logonButton);
 		firstPageLayout.addComponent(logonGroup, 0);
+		// TODO: move to bundle
+		impressumButton.setCaption("Impressum");
+		impressumButton.addStyleName("styleid-FirstPageViewImplEx-impressumButton");
+		impressumButton.addClickListener(new ClickListener() {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				impressumZeigen();
+			}
+		});
+		firstPageLayout.addComponent(impressumButton);
+	}
+	
+	private void impressumZeigen() {
+		popover = new Popover();
+		popover.setSizeFull();
+		popover.setModal(false);
+		VerticalLayout impressumLayout = new VerticalLayout();
+		impressumLayout
+				.addComponent(new Label(
+						"<h1>Impressum</h1>"
+								+ "<p>akquinet AG<br>"
+								+ "Paul-Stritter-Weg 5<br>"
+								+ "22297 Hamburg<br>"
+								+ "Fon: +49 (0) 40 88173-0</p>"
+								+ "<p>e-mail: info@akquinet.de<br>"
+								+ "Website: <a href=\"http://www.akquinet.de/\" target=\"_top\">www.akquinet.de</a></p>"
+								+ "<p>Registergericht: Hamburg<br>"
+								+ "Registernummer: HRB 97712<br>"
+								+ "Umsatzsteuer-Identnummer: DE 232 835 231<br>"
+								+ "Inhaltlich Verantwortlicher gemäß § 6 MDStV: Norbert Frank</p>"
+								+ "<p><strong>Haftungshinweis:</strong></p>"
+								+ "<p>akquinet AG übernimmt keine Gewähr für die Aktualität, Richtigkeit und Vollständigkeit der Informationen auf diesen Seiten oder den jederzeitigen störungsfreien Zugang. Wenn wir auf Internetseiten Dritter verweisen (Links), übernimmt akquinet AG trotz sorgfältiger inhaltlicher Kontrolle keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschliesslich deren Betreiber verantwortlich. Mit dem Betätigen des Verweises verlassen Sie das Informationsangebot der akquinet AG. Weiterhin schliesst akquinet AG ihre Haftung bei Serviceleistungen aus, insbesondere beim Download von der akquinet AG zur Verfügung gestellten Dateien auf den Internetseiten der akquinet AG.</p>",
+						ContentMode.HTML));
+		Button closeButton = new Button("Schließen");
+		closeButton.addClickListener(new ClickListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				popoverSchliessen();
+			}
+		});
+		impressumLayout.addComponent(closeButton);
+		popover.setContent(impressumLayout);
+		UI.getCurrent().addWindow(popover);
+	}
+
+	private void popoverSchliessen() {
+		if (popover != null) {
+			popover.close();
+			popover = null;
+		}
 	}
 
 	/*
