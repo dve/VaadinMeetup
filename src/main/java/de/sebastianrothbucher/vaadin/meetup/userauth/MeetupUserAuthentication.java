@@ -144,6 +144,11 @@ public class MeetupUserAuthentication implements UserAuthentication,
 	}
 
 	private String abbreviateName(String name) {
+		name = name.trim();
+		if (name.indexOf(' ') <= 0) {
+			// no need to abbreviate
+			return name;
+		}
 		String[] nameParts = name.split(" ");
 		String res = "";
 		for (int i = 0; i < nameParts.length; i++) {
