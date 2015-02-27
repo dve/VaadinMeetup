@@ -76,10 +76,7 @@ public class User implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (groupMember ? 1231 : 1237);
 		result = prime * result + meetupId;
-		result = prime * result
-				+ ((meetupShort == null) ? 0 : meetupShort.hashCode());
 		return result;
 	}
 
@@ -92,14 +89,7 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (groupMember != other.groupMember)
-			return false;
 		if (meetupId != other.meetupId)
-			return false;
-		if (meetupShort == null) {
-			if (other.meetupShort != null)
-				return false;
-		} else if (!meetupShort.equals(other.meetupShort))
 			return false;
 		return true;
 	}
