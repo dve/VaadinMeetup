@@ -127,6 +127,25 @@ public class BreakoutChangePresenterImplExTest {
 	}
 
 	@Test
+	public void testStartPresentingLikedSelf() {
+		context.put(UserAuthentication.CURRENT_USER_CONTEXT_KEY, testUser);
+		Breakout breakout = new Breakout("Old Topic");
+		breakout.setSubmittedByUser(testUser);
+		Set<User> likes = new HashSet<User>();
+		// simulate non-membership - retest error
+		likes.add(new User(22, "Test U.", false));
+		breakout.setLikedByUsers(likes);
+		presenter.setBreakout(breakout);
+		presenter.startPresenting();
+		verify(breakoutChangeViewEx).setObserver(presenter);
+		verify(breakoutChangeViewEx).initializeUi();
+		verify(breakoutChangeViewEx).setTopic("Old Topic");
+		verify(breakoutChangeViewEx).setLiked(true);
+		verify(breakoutChangeViewEx).setLikedCount(1);
+		verify(breakoutChangeViewEx).setReadOnlyMode(true);
+	}
+
+	@Test
 	public void testStartPresentingLikedMultiSelf() {
 		context.put(UserAuthentication.CURRENT_USER_CONTEXT_KEY, testUser);
 		Breakout breakout = new Breakout("Old Topic");
