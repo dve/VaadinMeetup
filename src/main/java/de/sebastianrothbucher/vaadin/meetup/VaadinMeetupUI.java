@@ -39,7 +39,7 @@ import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.FirstPagePresenter;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.PresenterFactoryEx;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageView;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.VaadinViewFactoryEx;
-import de.sebastianrothbucher.vaadin.meetup.userauth.FakeUserAuthentication;
+import de.sebastianrothbucher.vaadin.meetup.userauth.MeetupUserAuthentication;
 
 /**
  * Main UI class
@@ -56,7 +56,7 @@ public class VaadinMeetupUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		System.out.println("init");
+		// System.out.println("init");
 		NavigationManager m = new NavigationManager();
 		m.setMaintainBreadcrumb(true);
 		FirstPagePresenter fpres;
@@ -86,10 +86,10 @@ public class VaadinMeetupUI extends UI {
 			TalkDaoPlain talkDaoPlain = new TalkDaoPlain(entityManagerFactory);
 			talkService = new TalkServicePlain(entityManagerFactory,
 					talkDaoPlain);
-			// TODO: swap fake for real again
-			FakeUserAuthentication userAuthentication = new FakeUserAuthentication();
-//			 MeetupUserAuthentication userAuthentication = new
-//			 MeetupUserAuthentication(new VaadinSessionAccess());
+			// TODO: enable fake (e.g. via system property)
+//			FakeUserAuthentication userAuthentication = new FakeUserAuthentication();
+			MeetupUserAuthentication userAuthentication = new MeetupUserAuthentication(
+					new VaadinSessionAccess());
 			userAuthentication.processCurrentRequest(request, context);
 			presenterFactory = new PresenterFactoryEx(context,
 					new VaadinViewFactoryEx(), breakoutService, talkService,

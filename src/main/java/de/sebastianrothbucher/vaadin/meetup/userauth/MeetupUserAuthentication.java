@@ -89,7 +89,7 @@ public class MeetupUserAuthentication implements UserAuthentication,
 			return;
 		}
 		String code = request.getParameter(CODE_REQUEST_PARAM);
-		System.out.println("doing for code=" + code);
+		// System.out.println("doing for code=" + code);
 		if (code != null) {
 			String lastCode = (String) session
 					.getAttribute(LAST_CODE_SESSION_ATTR);
@@ -98,9 +98,9 @@ public class MeetupUserAuthentication implements UserAuthentication,
 				return;
 			}
 			session.setAttribute(LAST_CODE_SESSION_ATTR, code);
-			System.out.println(OAUTH_KEY_PROP);
-			System.out.println(OAUTH_SECRET_PROP);
-			System.out.println(VAADIN_GERMANY_GROUPID_PROP);
+			// System.out.println(OAUTH_KEY_PROP);
+			// System.out.println(OAUTH_SECRET_PROP);
+			// System.out.println(VAADIN_GERMANY_GROUPID_PROP);
 			try {
 				Map<String, String> tokenInfoHeaders = new HashMap<String, String>();
 				tokenInfoHeaders.put("Content-type",
@@ -237,7 +237,7 @@ public class MeetupUserAuthentication implements UserAuthentication,
 	@Override
 	public void requireUser(Presenter returnPresenter, int delay,
 			Map<String, Object> context) {
-		System.out.println(OAUTH_KEY_PROP);
+		// System.out.println(OAUTH_KEY_PROP);
 		// kill the current user - so we can have a new one
 		session.setAttribute(LAST_USER_SESSION_ATTR, null);
 		// (no presenter to be called EVER as we re-init the application
