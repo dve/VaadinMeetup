@@ -15,10 +15,14 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
+import java.util.ResourceBundle;
+
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
+
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
 
 public class BreakoutChangeViewImplEx extends BreakoutChangeViewImpl implements
 		BreakoutChangeViewEx {
@@ -53,23 +57,20 @@ public class BreakoutChangeViewImplEx extends BreakoutChangeViewImpl implements
 		topicLabel.setCaption(obtainBundle().getString(
 				"entity.Breakout.property.topic"));
 		topicLabel.addStyleName("styleid-BreakoutEditViewImpl-topicLabel");
-		// TODO: move to bundle
-		notLikedLabel.setValue("Dich interessiert das (noch) nicht");
+		notLikedLabel.setValue(obtainBundle().getString("notLiked"));
 		notLikedLabel
 				.addStyleName("styleid-BreakoutEditViewImpl-notLikedLabel");
 		notLikedLabel.setVisible(false);
 		layout.addComponent(notLikedLabel);
-		// TODO: move to bundle
-		likedLabel.setValue("Dich interessiert das!");
+		likedLabel.setValue(obtainBundle().getString("liked"));
 		likedLabel.addStyleName("styleid-BreakoutEditViewImpl-likedLabel");
 		likedLabel.setVisible(false);
 		layout.addComponent(likedLabel);
-		// TODO: move to bundle
-		likeButton.setCaption("Interessiert mich!");
+		likeButton.setCaption(obtainBundle().getString("like"));
 		likeButton.addStyleName("styleid-BreakoutEditViewImpl-likeButton");
 		likeButton.setVisible(false);
 		likeButton.addClickListener(new ClickListener() {
-			
+
 			/**
 			 * 
 			 */
@@ -81,12 +82,11 @@ public class BreakoutChangeViewImplEx extends BreakoutChangeViewImpl implements
 			}
 		});
 		layout.addComponent(likeButton);
-		// TODO: move to bundle
-		unLikeButton.setCaption("Interessiert mich nicht mehr");
+		unLikeButton.setCaption(obtainBundle().getString("unlike"));
 		unLikeButton.addStyleName("styleid-BreakoutEditViewImpl-unLikeButton");
 		unLikeButton.setVisible(false);
 		unLikeButton.addClickListener(new ClickListener() {
-			
+
 			/**
 			 * 
 			 */
@@ -99,8 +99,7 @@ public class BreakoutChangeViewImplEx extends BreakoutChangeViewImpl implements
 		});
 		layout.addComponent(unLikeButton);
 		// and rename "back"
-		// TODO: move to bundle
-		cancel.setCaption("Zurück");
+		cancel.setCaption(obtainBundle().getString("back"));
 	}
 
 	/*
@@ -167,6 +166,20 @@ public class BreakoutChangeViewImplEx extends BreakoutChangeViewImpl implements
 		likedLabel.setVisible(isLiked);
 		likeButton.setVisible(!isLiked);
 		unLikeButton.setVisible(isLiked);
+	}
+
+	private ResourceBundle bundle = BundleUtil.createCommonBundle();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.BreakoutEditViewImpl
+	 * #obtainBundle()
+	 */
+	@Override
+	protected ResourceBundle obtainBundle() {
+		return bundle;
 	}
 
 }

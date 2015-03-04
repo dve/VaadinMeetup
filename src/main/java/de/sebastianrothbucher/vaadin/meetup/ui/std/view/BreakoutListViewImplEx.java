@@ -15,6 +15,13 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
+import java.util.ResourceBundle;
+
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
+
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+
 public class BreakoutListViewImplEx extends BreakoutListViewImpl {
 
 	/**
@@ -26,6 +33,8 @@ public class BreakoutListViewImplEx extends BreakoutListViewImpl {
 		super();
 	}
 
+	private BreakoutListView.Observer observer;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,8 +45,50 @@ public class BreakoutListViewImplEx extends BreakoutListViewImpl {
 	@Override
 	public void initializeUi() {
 		super.initializeUi();
-		// TODO: move to bundle
-		setCaption("Alle Breakouts");
+		// avoid double-tap
+		breakoutTable.addValueChangeListener(new ValueChangeListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				if (event.getProperty().getValue() != null) {
+					observer.onBreakoutChosen();
+				}
+			}
+		});
+	}
+
+	private ResourceBundle bundle = BundleUtil.createCommonBundle();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.BreakoutListViewImpl
+	 * #obtainBundle()
+	 */
+	@Override
+	protected ResourceBundle obtainBundle() {
+		return bundle;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.BreakoutListViewImpl
+	 * #setObserver
+	 * (de.sebastianrothbucher.vaadin.meetup.ui.std.view.BreakoutListView
+	 * .Observer)
+	 */
+	@Override
+	public void setObserver(Observer observer) {
+		this.observer = observer;
+		super.setObserver(observer);
 	}
 
 }
