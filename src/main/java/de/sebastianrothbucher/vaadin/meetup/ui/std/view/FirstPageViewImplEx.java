@@ -15,12 +15,16 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
+import java.util.ResourceBundle;
+
 import com.vaadin.addon.touchkit.ui.NavigationButton;
-import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickEvent;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickListener;
+import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
+
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
 
 public class FirstPageViewImplEx extends FirstPageViewImpl implements
 		FirstPageViewEx {
@@ -50,12 +54,9 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 	@Override
 	public void initializeUi() {
 		super.initializeUi();
-		// TODO: move to bundle
-		listTalkButton.setCaption("Alle Talks...");
-		// TODO: move to bundle
-		listBreakoutButton.setCaption("Alle Breakouts...");
-		// TODO: move to bundle
-		newBreakoutButton.setCaption("Breakout vorschlagen");
+		listTalkButton.setCaption(obtainBundle().getString("entity.Talk.all"));
+		listBreakoutButton.setCaption(obtainBundle().getString(
+				"entity.Breakout.all"));
 		// hide "standard buttons"
 		listTalkButton.setVisible(false);
 		newTalkButton.setVisible(false);
@@ -67,21 +68,17 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 		userNameLabel.addStyleName("styleid-FirstPageViewImplEx-userNameLabel");
 		logonGroup.addComponent(userNameLabel);
 		logonLabel.setVisible(false);
-		// TODO: move to bundle
-		logonLabel
-				.setValue("Sie müssen über Meetup als Mitglied von Vaadin-Germany angemeldet sein.");
+		logonLabel.setValue(obtainBundle().getString("meetupMember"));
+		logonLabel.setContentMode(ContentMode.HTML);
 		logonLabel.addStyleName("styleid-FirstPageViewImplEx-logonLabel");
 		logonGroup.addComponent(logonLabel);
 		memberLabel.setVisible(false);
-		// TODO: move to bundle
-		memberLabel
-				.setValue("Treten Sie <a href=\"http://www.meetup.com/Vaadin-Germany/\" target=\"_blank\">Vaadin-Germany</a> bei und rufen Sie die App erneut auf...");
+		memberLabel.setValue(obtainBundle().getString("vaadinMember"));
 		memberLabel.setContentMode(ContentMode.HTML);
 		memberLabel.addStyleName("styleid-FirstPageViewImplEx-memberLabel");
 		logonGroup.addComponent(memberLabel);
 		logonButton.setVisible(false);
-		// TODO: move to bundle
-		logonButton.setCaption("Jetzt via Meetup.com anmelden...");
+		logonButton.setCaption(obtainBundle().getString("logon"));
 		logonButton.addStyleName("styleid-FirstPageViewImplEx-logonButton");
 		logonButton.addClickListener(new NavigationButtonClickListener() {
 
@@ -187,10 +184,23 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 			userNameLabel.setValue("--");
 			userNameLabel.setVisible(false);
 		} else {
-			// TODO: move to bundle
-			userNameLabel.setValue("Willkommen, " + userName);
+			userNameLabel.setValue(obtainBundle().getString("welcome")
+					+ userName);
 			userNameLabel.setVisible(true);
 		}
+	}
+
+	private ResourceBundle bundle = BundleUtil.createCommonBundle();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewImpl#
+	 * obtainBundle()
+	 */
+	@Override
+	protected ResourceBundle obtainBundle() {
+		return bundle;
 	}
 
 }

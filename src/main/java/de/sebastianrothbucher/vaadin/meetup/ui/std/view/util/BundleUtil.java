@@ -1,0 +1,61 @@
+/*
+ * Copyright 2015 Sebastian Rothbucher
+ *  
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package de.sebastianrothbucher.vaadin.meetup.ui.std.view.util;
+
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.ResourceBundle;
+import java.util.Set;
+
+import com.vaadin.ui.UI;
+
+public class BundleUtil {
+
+	private BundleUtil() {
+		super();
+	}
+
+	public static ResourceBundle createCommonBundle() {
+		final ResourceBundle bundleBase = ResourceBundle.getBundle(
+				"de.sebastianrothbucher.vaadin.meetup.ui.std.view.messages", UI
+						.getCurrent().getLocale());
+		final ResourceBundle bundleEx = ResourceBundle
+				.getBundle(
+						"de.sebastianrothbucher.vaadin.meetup.ui.std.view.messages_custom",
+						UI.getCurrent().getLocale());
+		return new ResourceBundle() {
+
+			@Override
+			protected Object handleGetObject(String key) {
+				if (bundleEx.containsKey(key)) {
+					return bundleEx.getObject(key);
+				} else {
+					return bundleBase.getObject(key);
+				}
+			}
+
+			@Override
+			public Enumeration<String> getKeys() {
+				Set<String> keys = new HashSet<String>();
+				keys.addAll(bundleBase.keySet());
+				keys.addAll(bundleEx.keySet());
+				return Collections.enumeration(keys);
+			}
+		};
+	}
+
+}

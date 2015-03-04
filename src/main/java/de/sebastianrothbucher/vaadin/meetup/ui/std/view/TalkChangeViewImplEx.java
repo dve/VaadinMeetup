@@ -15,6 +15,10 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
+import java.util.ResourceBundle;
+
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+
 public class TalkChangeViewImplEx extends TalkChangeViewImpl {
 
 	/**
@@ -35,13 +39,23 @@ public class TalkChangeViewImplEx extends TalkChangeViewImpl {
 	@Override
 	public void initializeUi() {
 		super.initializeUi();
-		// TODO: move to bundle
-		setCaption("Talk-Details");
 		// save does not make sense
 		save.setVisible(false);
 		// and rename "back"
-		// TODO: move to bundle
-		cancel.setCaption("Zurück");
+		cancel.setCaption(obtainBundle().getString("back"));
+	}
+
+	private ResourceBundle bundle = BundleUtil.createCommonBundle();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.TalkEditViewImpl#
+	 * obtainBundle()
+	 */
+	@Override
+	protected ResourceBundle obtainBundle() {
+		return bundle;
 	}
 
 }

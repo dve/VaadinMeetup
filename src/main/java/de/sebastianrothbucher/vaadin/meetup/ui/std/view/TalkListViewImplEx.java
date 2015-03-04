@@ -15,6 +15,13 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
+import java.util.ResourceBundle;
+
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
+
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+
 public class TalkListViewImplEx extends TalkListViewImpl {
 
 	/**
@@ -26,6 +33,8 @@ public class TalkListViewImplEx extends TalkListViewImpl {
 		super();
 	}
 
+	private TalkListView.Observer observer;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -35,10 +44,50 @@ public class TalkListViewImplEx extends TalkListViewImpl {
 	@Override
 	public void initializeUi() {
 		super.initializeUi();
-		// TODO: move to bundle
-		setCaption("Alle Talks");
 		// adding does not make sense
 		addTalk.setVisible(false);
+		super.initializeUi();
+		// avoid double-tap
+		talkTable.addValueChangeListener(new ValueChangeListener() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				if (event.getProperty().getValue() != null) {
+					observer.onTalkChosen();
+				}
+			}
+		});
+	}
+
+	private ResourceBundle bundle = BundleUtil.createCommonBundle();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.sebastianrothbucher.vaadin.meetup.ui.std.view.TalkListViewImpl#
+	 * obtainBundle()
+	 */
+	@Override
+	protected ResourceBundle obtainBundle() {
+		return bundle;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.TalkListViewImpl#setObserver
+	 * (de.sebastianrothbucher.vaadin.meetup.ui.std.view.TalkListView.Observer)
+	 */
+	@Override
+	public void setObserver(Observer observer) {
+		this.observer = observer;
+		super.setObserver(observer);
 	}
 
 }

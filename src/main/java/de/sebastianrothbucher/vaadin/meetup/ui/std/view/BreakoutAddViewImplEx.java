@@ -15,6 +15,10 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 
+import java.util.ResourceBundle;
+
+import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+
 public class BreakoutAddViewImplEx extends BreakoutAddViewImpl {
 
 	/**
@@ -36,8 +40,22 @@ public class BreakoutAddViewImplEx extends BreakoutAddViewImpl {
 	@Override
 	public void initializeUi() {
 		super.initializeUi();
-		// TODO: move to bundle
-		setCaption("Breakout vorschlagen");
+		// likedCount makes no sense (yet)
+		likedCount.setVisible(false);
+	}
+
+	private ResourceBundle bundle = BundleUtil.createCommonBundle();
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.BreakoutEditViewImpl
+	 * #obtainBundle()
+	 */
+	@Override
+	protected ResourceBundle obtainBundle() {
+		return bundle;
 	}
 
 }
