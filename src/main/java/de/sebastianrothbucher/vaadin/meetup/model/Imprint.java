@@ -23,60 +23,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import de.akquinet.engineering.vaadinator.annotations.DisplayBean;
-import de.akquinet.engineering.vaadinator.annotations.DisplayProperty;
-import de.akquinet.engineering.vaadinator.annotations.DisplayPropertySetting;
-import de.akquinet.engineering.vaadinator.annotations.FieldType;
+import de.akquinet.engineering.vaadinator.annotations.ServiceBean;
 
-@DisplayBean
+@ServiceBean
 @Entity
-public class Talk implements Serializable {
+public class Imprint implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Talk() {
+	public Imprint() {
 		super();
 	}
 
-	public Talk(String title) {
+	public Imprint(String content) {
 		super();
-		this.title = title;
+		this.content = content;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@DisplayProperty(profileSettings = { @DisplayPropertySetting(readOnly = true, fieldType = FieldType.LABEL, showInTable = true) })
-	private String title;
-	@DisplayProperty(profileSettings = { @DisplayPropertySetting(readOnly = true, fieldType = FieldType.LABEL) })
-	@Column(length = 1024)
-	private String details = "";
+	@Column(length = 2048)
+	private String content;
 
-	public long getId() {
-		return id;
+	public String getContent() {
+		return content;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	@Override
@@ -86,7 +64,7 @@ public class Talk implements Serializable {
 		}
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		return result;
 	}
 
@@ -98,22 +76,21 @@ public class Talk implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Talk other = (Talk) obj;
+		Imprint other = (Imprint) obj;
 		if (id != 0) {
 			return id == other.id;
 		}
-		if (title == null) {
-			if (other.title != null)
+		if (content == null) {
+			if (other.content != null)
 				return false;
-		} else if (!title.equals(other.title))
+		} else if (!content.equals(other.content))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Talk [id=" + id + ", title=" + title + ", details=" + details
-				+ "]";
+		return "Imprint [id=" + id + ", content=" + content + "]";
 	}
 
 }

@@ -65,12 +65,25 @@ public interface FirstPageViewEx extends FirstPageView {
 	 */
 	public void setUserName(String userName);
 
+	/**
+	 * Show the imprint popover
+	 * 
+	 * @param imprintHtml
+	 *            HTML-formatted imprint
+	 */
+	public void showImprint(String imprintHtml);
+
 	public static interface Observer extends FirstPageView.Observer {
 
 		/**
 		 * Callback for pressing the "login with meetup"
 		 */
 		public void onLogon();
+
+		/**
+		 * Callback to show the Imprint
+		 */
+		public void onImprint();
 
 	}
 

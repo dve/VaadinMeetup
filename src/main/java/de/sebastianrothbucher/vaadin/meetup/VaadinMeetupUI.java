@@ -30,9 +30,12 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
 
 import de.sebastianrothbucher.vaadin.meetup.dao.BreakoutDaoPlain;
+import de.sebastianrothbucher.vaadin.meetup.dao.ImprintDaoPlain;
 import de.sebastianrothbucher.vaadin.meetup.dao.TalkDaoPlain;
 import de.sebastianrothbucher.vaadin.meetup.service.BreakoutServiceEx;
 import de.sebastianrothbucher.vaadin.meetup.service.BreakoutServicePlainEx;
+import de.sebastianrothbucher.vaadin.meetup.service.ImprintService;
+import de.sebastianrothbucher.vaadin.meetup.service.ImprintServicePlain;
 import de.sebastianrothbucher.vaadin.meetup.service.TalkService;
 import de.sebastianrothbucher.vaadin.meetup.service.TalkServicePlain;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.presenter.FirstPagePresenter;
@@ -76,6 +79,7 @@ public class VaadinMeetupUI extends UI {
 			// simple, overwrite method for e.g. Spring / CDI / ...
 			// Entity-Manager NUR Thread-Safe, wenn er injected wird wie hier
 			BreakoutServiceEx breakoutService;
+			ImprintService imprintService;
 			TalkService talkService;
 			EntityManagerFactory entityManagerFactory = Persistence
 					.createEntityManagerFactory("VaadinMeetup");
@@ -83,6 +87,10 @@ public class VaadinMeetupUI extends UI {
 					entityManagerFactory);
 			breakoutService = new BreakoutServicePlainEx(entityManagerFactory,
 					breakoutDaoPlain);
+			ImprintDaoPlain imprintDaoPlain = new ImprintDaoPlain(
+					entityManagerFactory);
+			imprintService = new ImprintServicePlain(entityManagerFactory,
+					imprintDaoPlain);
 			TalkDaoPlain talkDaoPlain = new TalkDaoPlain(entityManagerFactory);
 			talkService = new TalkServicePlain(entityManagerFactory,
 					talkDaoPlain);
@@ -92,8 +100,8 @@ public class VaadinMeetupUI extends UI {
 					new VaadinSessionAccess());
 			userAuthentication.processCurrentRequest(request, context);
 			presenterFactory = new PresenterFactoryEx(context,
-					new VaadinViewFactoryEx(), breakoutService, talkService,
-					userAuthentication);
+					new VaadinViewFactoryEx(), breakoutService, imprintService,
+					talkService, userAuthentication);
 		}
 		return presenterFactory;
 	}

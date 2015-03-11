@@ -18,6 +18,7 @@ package de.sebastianrothbucher.vaadin.meetup.ui.std.presenter;
 import java.util.Map;
 
 import de.sebastianrothbucher.vaadin.meetup.service.BreakoutServiceEx;
+import de.sebastianrothbucher.vaadin.meetup.service.ImprintService;
 import de.sebastianrothbucher.vaadin.meetup.service.TalkService;
 import de.sebastianrothbucher.vaadin.meetup.ui.presenter.Presenter;
 import de.sebastianrothbucher.vaadin.meetup.ui.presenter.SubviewCapablePresenter;
@@ -28,11 +29,14 @@ public class PresenterFactoryEx extends PresenterFactory {
 
 	public PresenterFactoryEx(Map<String, Object> context,
 			ViewFactoryEx viewFactory, BreakoutServiceEx breakoutService,
-			TalkService talkService, UserAuthentication userAuthentication) {
-		super(context, viewFactory, breakoutService, talkService);
+			ImprintService imprintService, TalkService talkService,
+			UserAuthentication userAuthentication) {
+		super(context, viewFactory, breakoutService, imprintService,
+				talkService);
 		this.context = context;
 		this.viewFactory = viewFactory;
 		this.breakoutService = breakoutService;
+		this.imprintService = imprintService;
 		this.talkService = talkService;
 		this.userAuthentication = userAuthentication;
 	}
@@ -40,6 +44,7 @@ public class PresenterFactoryEx extends PresenterFactory {
 	private Map<String, Object> context;
 	private ViewFactoryEx viewFactory;
 	private BreakoutServiceEx breakoutService;
+	private ImprintService imprintService;
 	private TalkService talkService;
 	private UserAuthentication userAuthentication;
 
@@ -53,7 +58,8 @@ public class PresenterFactoryEx extends PresenterFactory {
 	@Override
 	public FirstPagePresenter createFirstPagePresenter() {
 		return new FirstPagePresenterImplEx(context,
-				viewFactory.createFirstPageView(), this, userAuthentication);
+				viewFactory.createFirstPageView(), this, imprintService,
+				userAuthentication);
 	}
 
 	/*

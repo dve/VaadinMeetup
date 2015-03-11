@@ -15,9 +15,13 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.presenter;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import de.sebastianrothbucher.vaadin.meetup.model.Imprint;
 import de.sebastianrothbucher.vaadin.meetup.model.User;
+import de.sebastianrothbucher.vaadin.meetup.service.ImprintService;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewEx;
 import de.sebastianrothbucher.vaadin.meetup.userauth.UserAuthentication;
 
@@ -31,15 +35,17 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl implements
 
 	public FirstPagePresenterImplEx(Map<String, Object> context,
 			FirstPageViewEx view, PresenterFactoryEx presenterFactory,
-			UserAuthentication userAuthentication) {
+			ImprintService imprintService, UserAuthentication userAuthentication) {
 		super(context, view, presenterFactory);
 		this.context = context;
 		this.view = view;
+		this.imprintService = imprintService;
 		this.userAuthentication = userAuthentication;
 	}
 
 	private Map<String, Object> context;
 	private FirstPageViewEx view;
+	private ImprintService imprintService;
 	private UserAuthentication userAuthentication;
 
 	/*
@@ -172,6 +178,29 @@ public class FirstPagePresenterImplEx extends FirstPagePresenterImpl implements
 	@Override
 	public void onLogon() {
 		userAuthentication.requireUser(this, 0, context);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewEx.Observer
+	 * #onImprint()
+	 */
+	@Override
+	public void onImprint() {
+		try {
+			List<Imprint> imprints = imprintService
+					.listAllImprint(new HashMap<String, Object>(context));
+			String imprintContent = null;
+			if (imprints.size() > 0) {
+				imprintContent = imprints.get(0).getContent();
+			}
+			view.showImprint(imprintContent == null ? "--" : imprintContent);
+		} catch (RuntimeException exc) {
+			view.showErrorMessage(exc.toString());
+			throw exc;
+		}
 	}
 
 }

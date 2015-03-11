@@ -15,6 +15,7 @@
  */
 package de.sebastianrothbucher.vaadin.meetup.ui.std.presenter;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyMap;
@@ -25,13 +26,17 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import de.sebastianrothbucher.vaadin.meetup.model.Imprint;
 import de.sebastianrothbucher.vaadin.meetup.model.User;
+import de.sebastianrothbucher.vaadin.meetup.service.ImprintService;
 import de.sebastianrothbucher.vaadin.meetup.ui.presenter.Presenter;
 import de.sebastianrothbucher.vaadin.meetup.ui.presenter.SubviewCapablePresenter;
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.BreakoutAddView;
@@ -45,6 +50,7 @@ public class FirstPagePresenterImplExTest {
 	Map<String, Object> context = new HashMap<String, Object>();
 	User testUser = new User(22, "Test U.", true);
 	FirstPageViewEx firstPageViewEx;
+	ImprintService imprintService;
 	UserAuthentication userAuthentication;
 	PresenterFactoryEx presenterFactoryEx;
 	FirstPagePresenterImplEx presenter;
@@ -52,10 +58,11 @@ public class FirstPagePresenterImplExTest {
 	@Before
 	public void setUp() {
 		firstPageViewEx = mock(FirstPageViewEx.class);
+		imprintService = mock(ImprintService.class);
 		userAuthentication = mock(UserAuthentication.class);
 		presenterFactoryEx = mock(PresenterFactoryEx.class);
 		presenter = new FirstPagePresenterImplEx(context, firstPageViewEx,
-				presenterFactoryEx, userAuthentication);
+				presenterFactoryEx, imprintService, userAuthentication);
 	}
 
 	@Test
@@ -227,6 +234,43 @@ public class FirstPagePresenterImplExTest {
 		presenter.onLogon();
 		verify(userAuthentication).requireUser(eq(presenter), anyInt(),
 				anyMap());
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testOnImprint() {
+		when(imprintService.listAllImprint(anyMap())).thenReturn(
+				Collections.singletonList(new Imprint("Test-Imprint<br/>bla")));
+		presenter.onImprint();
+		verify(imprintService).listAllImprint(anyMap());
+		verify(firstPageViewEx).showImprint("Test-Imprint<br/>bla");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testOnImprintEmpty() {
+		when(imprintService.listAllImprint(anyMap())).thenReturn(
+				new ArrayList<Imprint>());
+		presenter.onImprint();
+		verify(imprintService).listAllImprint(anyMap());
+		verify(firstPageViewEx).showImprint("--");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testOnImprintException() {
+		when(imprintService.listAllImprint(anyMap())).thenThrow(
+				new RuntimeException("TEST"));
+		Exception exc = null;
+		try {
+			presenter.onImprint();
+		} catch (Exception e) {
+			exc = e;
+		}
+		assertNotNull(exc);
+		verify(imprintService).listAllImprint(anyMap());
+		verify(firstPageViewEx, never()).showImprint(anyString());
+		verify(firstPageViewEx).showErrorMessage(anyString());
 	}
 
 }

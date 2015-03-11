@@ -48,7 +48,7 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 	protected Label logonLabel = new Label();
 	protected Label memberLabel = new Label();
 	protected NavigationButton logonButton = new NavigationButton();
-	protected Button impressumButton = new Button();
+	protected Button imprintButton = new Button();
 
 	private Popover popover = null;
 	
@@ -104,10 +104,9 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 		});
 		logonGroup.addComponent(logonButton);
 		firstPageLayout.addComponent(logonGroup, 0);
-		// TODO: move to bundle
-		impressumButton.setCaption("Impressum");
-		impressumButton.addStyleName("styleid-FirstPageViewImplEx-impressumButton");
-		impressumButton.addClickListener(new ClickListener() {
+		imprintButton.setCaption(obtainBundle().getString("imprint"));
+		imprintButton.addStyleName("styleid-FirstPageViewImplEx-imprintButton");
+		imprintButton.addClickListener(new ClickListener() {
 			
 			/**
 			 * 
@@ -116,33 +115,28 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				impressumZeigen();
+				observer.onImprint();
 			}
 		});
-		firstPageLayout.addComponent(impressumButton);
+		firstPageLayout.addComponent(imprintButton);
 	}
-	
-	private void impressumZeigen() {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.sebastianrothbucher.vaadin.meetup.ui.std.view.FirstPageViewEx#showImprint
+	 * (java.lang.String)
+	 */
+	@Override
+	public void showImprint(String imprintHtml) {
 		popover = new Popover();
 		popover.setSizeFull();
 		popover.setModal(false);
-		VerticalLayout impressumLayout = new VerticalLayout();
-		impressumLayout
-				.addComponent(new Label(
-						"<h1>Impressum</h1>"
-								+ "<p>akquinet AG<br>"
-								+ "Paul-Stritter-Weg 5<br>"
-								+ "22297 Hamburg<br>"
-								+ "Fon: +49 (0) 40 88173-0</p>"
-								+ "<p>e-mail: info@akquinet.de<br>"
-								+ "Website: <a href=\"http://www.akquinet.de/\" target=\"_top\">www.akquinet.de</a></p>"
-								+ "<p>Registergericht: Hamburg<br>"
-								+ "Registernummer: HRB 97712<br>"
-								+ "Umsatzsteuer-Identnummer: DE 232 835 231<br>"
-								+ "Inhaltlich Verantwortlicher gemäß § 6 MDStV: Norbert Frank</p>"
-								+ "<p><strong>Haftungshinweis:</strong></p>"
-								+ "<p>akquinet AG übernimmt keine Gewähr für die Aktualität, Richtigkeit und Vollständigkeit der Informationen auf diesen Seiten oder den jederzeitigen störungsfreien Zugang. Wenn wir auf Internetseiten Dritter verweisen (Links), übernimmt akquinet AG trotz sorgfältiger inhaltlicher Kontrolle keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschliesslich deren Betreiber verantwortlich. Mit dem Betätigen des Verweises verlassen Sie das Informationsangebot der akquinet AG. Weiterhin schliesst akquinet AG ihre Haftung bei Serviceleistungen aus, insbesondere beim Download von der akquinet AG zur Verfügung gestellten Dateien auf den Internetseiten der akquinet AG.</p>",
-						ContentMode.HTML));
+		VerticalLayout imprintLayout = new VerticalLayout();
+		Label imprintLabel = new Label(imprintHtml, ContentMode.HTML);
+		imprintLabel.addStyleName("styleid-FirstPageViewImplEx-imprintLabel");
+		imprintLayout.addComponent(imprintLabel);
 		Button closeButton = new Button("Schließen");
 		closeButton.addClickListener(new ClickListener() {
 
@@ -156,8 +150,8 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 				popoverSchliessen();
 			}
 		});
-		impressumLayout.addComponent(closeButton);
-		popover.setContent(impressumLayout);
+		imprintLayout.addComponent(closeButton);
+		popover.setContent(imprintLayout);
 		UI.getCurrent().addWindow(popover);
 	}
 

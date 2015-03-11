@@ -2,7 +2,22 @@
 	background-color: red; 
 }
 
-.v-button-styleid-FirstPageViewImplEx-impressumButton {
+.v-button-styleid-FirstPageViewImplEx-imprintButton {
 	font-size: 12px !important;
 	width: 100px !important;
+}
+
+.v-label-styleid-FirstPageViewImplEx-imprintLabel {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.v-label-styleid-BreakoutEditViewImpl-likedLabel {
+	padding-left: 10px;
+	padding-right: 10px;	
+}
+
+.v-label-styleid-BreakoutEditViewImpl-notLikedLabel {
+	padding-left: 10px;
+	padding-right: 10px;	
 }
