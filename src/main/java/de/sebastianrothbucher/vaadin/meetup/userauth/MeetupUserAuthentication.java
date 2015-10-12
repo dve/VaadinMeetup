@@ -61,7 +61,7 @@ public class MeetupUserAuthentication implements UserAuthentication,
 	private static final String LAST_USER_SESSION_ATTR = "last_user";
 
 	// TODO: move (e.g. to property file)
-	private static final String APPLICATION_ADDRESS = "http://meetup-vaadinhh.rhcloud.com/";
+	private static final String APPLICATION_ADDRESS = "https://meetup-vaadinhh.rhcloud.com/";
 
 	private static final int VAADIN_GERMANY_GROUPID_PROP = Integer
 			.parseInt(System.getProperty("meetup.groupid"));
