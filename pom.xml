@@ -92,6 +92,11 @@
 			<!-- scope can be test when PostgreSQL et al is used as DB -->
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20080701</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
