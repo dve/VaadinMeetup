@@ -31,6 +31,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+import de.sebastianrothbucher.vaadin.meetup.ui.view.ExceptionMappingStrategy;
 
 public class FirstPageViewImplEx extends FirstPageViewImpl implements
 		FirstPageViewEx {
@@ -40,8 +41,8 @@ public class FirstPageViewImplEx extends FirstPageViewImpl implements
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public FirstPageViewImplEx() {
-		super();
+	public FirstPageViewImplEx(ExceptionMappingStrategy exceptionMappingStrategy) {
+		super(exceptionMappingStrategy);
 	}
 
 	protected Label userNameLabel = new Label();

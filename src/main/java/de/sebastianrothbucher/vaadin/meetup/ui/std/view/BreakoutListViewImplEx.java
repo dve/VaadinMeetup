@@ -21,6 +21,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+import de.sebastianrothbucher.vaadin.meetup.ui.view.ExceptionMappingStrategy;
 
 public class BreakoutListViewImplEx extends BreakoutListViewImpl {
 
@@ -29,8 +30,8 @@ public class BreakoutListViewImplEx extends BreakoutListViewImpl {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BreakoutListViewImplEx() {
-		super();
+	public BreakoutListViewImplEx(ExceptionMappingStrategy exceptionMappingStrategy) {
+		super(exceptionMappingStrategy);
 	}
 
 	private BreakoutListView.Observer observer;

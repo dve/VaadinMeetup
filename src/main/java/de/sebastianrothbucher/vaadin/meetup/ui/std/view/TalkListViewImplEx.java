@@ -21,6 +21,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+import de.sebastianrothbucher.vaadin.meetup.ui.view.ExceptionMappingStrategy;
 
 public class TalkListViewImplEx extends TalkListViewImpl {
 
@@ -29,8 +30,8 @@ public class TalkListViewImplEx extends TalkListViewImpl {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public TalkListViewImplEx() {
-		super();
+	public TalkListViewImplEx(ExceptionMappingStrategy exceptionMappingStrategy) {
+		super(exceptionMappingStrategy);
 	}
 
 	private TalkListView.Observer observer;

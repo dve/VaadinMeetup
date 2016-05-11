@@ -18,6 +18,7 @@ package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 import java.util.ResourceBundle;
 
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+import de.sebastianrothbucher.vaadin.meetup.ui.view.ExceptionMappingStrategy;
 
 public class TalkChangeViewImplEx extends TalkChangeViewImpl {
 
@@ -26,8 +27,8 @@ public class TalkChangeViewImplEx extends TalkChangeViewImpl {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public TalkChangeViewImplEx() {
-		super();
+	public TalkChangeViewImplEx(ExceptionMappingStrategy exceptionMappingStrategy) {
+		super(exceptionMappingStrategy);
 	}
 
 	/*

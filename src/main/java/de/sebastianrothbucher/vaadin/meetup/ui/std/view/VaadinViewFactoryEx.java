@@ -30,7 +30,7 @@ public class VaadinViewFactoryEx extends VaadinViewFactory implements
 	 */
 	@Override
 	public BreakoutListView createBreakoutListView() {
-		return new BreakoutListViewImplEx();
+		return new BreakoutListViewImplEx(exceptionMappingStrategy);
 	}
 
 	/*
@@ -41,7 +41,7 @@ public class VaadinViewFactoryEx extends VaadinViewFactory implements
 	 */
 	@Override
 	public BreakoutAddView createBreakoutAddView() {
-		return new BreakoutAddViewImplEx();
+		return new BreakoutAddViewImplEx(exceptionMappingStrategy);
 	}
 
 	/*
@@ -52,7 +52,7 @@ public class VaadinViewFactoryEx extends VaadinViewFactory implements
 	 */
 	@Override
 	public BreakoutChangeViewEx createBreakoutChangeView() {
-		return new BreakoutChangeViewImplEx();
+		return new BreakoutChangeViewImplEx(exceptionMappingStrategy);
 	}
 
 	/*
@@ -63,7 +63,7 @@ public class VaadinViewFactoryEx extends VaadinViewFactory implements
 	 */
 	@Override
 	public FirstPageViewEx createFirstPageView() {
-		return new FirstPageViewImplEx();
+		return new FirstPageViewImplEx(exceptionMappingStrategy);
 	}
 
 	/*
@@ -74,7 +74,7 @@ public class VaadinViewFactoryEx extends VaadinViewFactory implements
 	 */
 	@Override
 	public TalkListView createTalkListView() {
-		return new TalkListViewImplEx();
+		return new TalkListViewImplEx(exceptionMappingStrategy);
 	}
 
 	/*
@@ -85,7 +85,7 @@ public class VaadinViewFactoryEx extends VaadinViewFactory implements
 	 */
 	@Override
 	public TalkChangeView createTalkChangeView() {
-		return new TalkChangeViewImplEx();
+		return new TalkChangeViewImplEx(exceptionMappingStrategy);
 	}
 
 }

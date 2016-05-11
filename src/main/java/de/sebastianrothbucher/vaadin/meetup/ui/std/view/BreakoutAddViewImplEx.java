@@ -18,6 +18,7 @@ package de.sebastianrothbucher.vaadin.meetup.ui.std.view;
 import java.util.ResourceBundle;
 
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+import de.sebastianrothbucher.vaadin.meetup.ui.view.ExceptionMappingStrategy;
 
 public class BreakoutAddViewImplEx extends BreakoutAddViewImpl {
 
@@ -26,8 +27,8 @@ public class BreakoutAddViewImplEx extends BreakoutAddViewImpl {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BreakoutAddViewImplEx() {
-		super();
+	public BreakoutAddViewImplEx(ExceptionMappingStrategy exceptionMappingStrategy) {
+		super(exceptionMappingStrategy);
 	}
 
 	/*

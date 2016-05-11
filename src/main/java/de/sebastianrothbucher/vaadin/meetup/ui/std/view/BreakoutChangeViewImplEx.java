@@ -23,6 +23,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
 
 import de.sebastianrothbucher.vaadin.meetup.ui.std.view.util.BundleUtil;
+import de.sebastianrothbucher.vaadin.meetup.ui.view.ExceptionMappingStrategy;
 
 public class BreakoutChangeViewImplEx extends BreakoutChangeViewImpl implements
 		BreakoutChangeViewEx {
@@ -38,8 +39,8 @@ public class BreakoutChangeViewImplEx extends BreakoutChangeViewImpl implements
 	protected Button likeButton = new Button();
 	protected Button unLikeButton = new Button();
 
-	public BreakoutChangeViewImplEx() {
-		super();
+	public BreakoutChangeViewImplEx(ExceptionMappingStrategy exceptionMappingStrategy) {
+		super(exceptionMappingStrategy);
 	}
 
 	private BreakoutChangeViewEx.Observer observer;
